@@ -10,6 +10,22 @@ const App = () => {
   const [triggerScreenshot, setTriggerScreenshot] = useState(false);
   const [bgColor, setBgColor] = useState('ff0000');
   const [fgColor, setFgColor] = useState('0000ff');
+  const [imageDataURI, setImageDataURI] = useState('');
+
+  const captureCanvasAsDataURI = () => {
+    const canvas = document.querySelector('canvas');
+    if (canvas) {
+      const dataURI = canvas.toDataURL('image/png');
+      return dataURI;
+    }
+    return null;
+  };
+
+  const captureCanvas = () => {
+    const dataURI = captureCanvasAsDataURI();
+    setImageDataURI(dataURI);
+    console.log(dataURI);
+  };
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -35,7 +51,6 @@ const App = () => {
           antialias: true,
         }}
       >
-        <ScreenshotTrigger trigger={triggerScreenshot} setTrigger={setTriggerScreenshot} />
         <directionalLight position={[10, 20, -20]} intensity={2} />
         <ambientLight intensity={1} />
         <color attach="background" args={[bgColor]} />
@@ -44,7 +59,7 @@ const App = () => {
         </Box>
         <OrbitControls />
       </Canvas>
-      <button onClick={() => setTriggerScreenshot(true)}>Download Image</button>
+      <button onClick={captureCanvas}>Download Image</button>
     </>
   );
 };
