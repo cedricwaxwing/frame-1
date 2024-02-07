@@ -11,7 +11,7 @@ const frameMetadata = getFrameMetadata({
     {
       action: 'link',
       label: 'TEST ME',
-      target: `${NEXT_PUBLIC_URL}?bg=${'#ffff00'}&fg=${'#9900ff'}`,
+      target: `${NEXT_PUBLIC_URL}?bg=${'ffff00'}&fg=${'9900ff'}`,
     },
   ],
   image: `${NEXT_PUBLIC_URL}/park-1.png`,

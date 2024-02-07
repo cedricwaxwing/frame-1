@@ -25,7 +25,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
     getFrameHtmlResponse({
       buttons: [
         {
-          label: `BLAHHHHHH: ${colors[0]}`,
+          label: `New Colors: ${colors[0]},${colors[1]}`,
         },
       ],
       image: `${NEXT_PUBLIC_URL}/park-2.png`,
