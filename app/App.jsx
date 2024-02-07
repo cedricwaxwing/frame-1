@@ -3,12 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Box, OrbitControls } from '@react-three/drei';
+import { useCanvasImage } from './CanvasImageContext';
 import './App.css';
 
 const App = () => {
   const [bgColor, setBgColor] = useState('#ff0000');
   const [fgColor, setFgColor] = useState('#0000ff');
-  const [imageDataURI, setImageDataURI] = useState('');
+  const { setImageDataURI } = useCanvasImage();
 
   const captureCanvasAsDataURI = () => {
     const canvas = document.querySelector('canvas');
@@ -30,12 +31,12 @@ const App = () => {
 
     const bg = queryParams.get('bg');
     if (bg) {
-      setBgColor(`#${bg}`);
+      setBgColor(bg);
     }
 
     const fg = queryParams.get('fg');
     if (fg) {
-      setFgColor(`#${fg}`);
+      setFgColor(fg);
     }
   }, []);
 
@@ -57,6 +58,7 @@ const App = () => {
         </Box>
         <OrbitControls />
       </Canvas>
+      <button onClick={captureCanvas}>Download Image</button>
     </>
   );
 };

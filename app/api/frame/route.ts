@@ -16,7 +16,7 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
   const colors = message?.input ? message.input.split(',') : colorsDefault.split(',');
 
   if (message?.button === 3) {
-    return NextResponse.redirect(`${NEXT_PUBLIC_URL}??bg=${colors[0]}&fg=${colors[1]}`, {
+    return NextResponse.redirect(`${NEXT_PUBLIC_URL}?bg=${colors[0]}&fg=${colors[1]}`, {
       status: 302,
     });
   }

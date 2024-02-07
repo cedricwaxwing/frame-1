@@ -8,7 +8,7 @@ const imageTest =
 
 const frameMetadata = getFrameMetadata({
   input: {
-    text: 'Enter 2 hex values separated with a comma (ex: ff00ff,9900ff)',
+    text: 'Enter a foreground color',
   },
   buttons: [
     {
