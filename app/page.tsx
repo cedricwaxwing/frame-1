@@ -10,17 +10,13 @@ const frameMetadata = getFrameMetadata({
     },
     {
       action: 'link',
-      label: 'Link to Google',
-      target: 'https://www.google.com',
-    },
-    {
-      label: 'Redirect to cute pictures',
-      action: 'post_redirect',
+      label: 'TEST ME',
+      target: `${NEXT_PUBLIC_URL}?bg=${'#ffff00'}&fg=${'#9900ff'}`,
     },
   ],
   image: `${NEXT_PUBLIC_URL}/park-1.png`,
   input: {
-    text: 'Tell me a boat story',
+    text: 'Enter 2 hex values separated with a comma (ex: ff00ff,9900ff)',
   },
   post_url: `${NEXT_PUBLIC_URL}/api/frame`,
 });
