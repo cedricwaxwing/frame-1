@@ -12,6 +12,8 @@ import {
 import Link from "next/link";
 import { DEBUG_HUB_OPTIONS } from "./debug/constants";
 import { getTokenUrl } from "frames.js";
+import { Canvas } from "@react-three/fiber";
+import Scene from "./Scene";
 
 type State = {
   active: string;
@@ -82,23 +84,27 @@ export default async function Home({
 
   // then, when done, return next frame
   return (
-    <div className="p-4">
+    <div className='p-4'>
       frames.js starter kit.{" "}
-      <Link href={`/debug?url=${baseUrl}`} className="underline">
+      <Link href={`/debug?url=${baseUrl}`} className='underline'>
         Debug
       </Link>
       <FrameContainer
-        postUrl="/frames"
+        postUrl='/frames'
         state={state}
-        previousFrame={previousFrame}
-      >
+        previousFrame={previousFrame}>
         {/* <FrameImage src="https://framesjs.org/og.png" /> */}
         <FrameImage>
-          <div tw="w-full h-full bg-slate-700 text-white justify-center items-center">
+          <Canvas
+            camera={{ position: [5, 5, 5] }}
+            style={{ position: "absolute", width: "40vw", height: "30vw" }}>
+            <Scene />
+          </Canvas>
+          {/* <div tw="w-full h-full bg-slate-700 text-white justify-center items-center">
             {frameMessage?.inputText ? frameMessage.inputText : "Hello world"}
-          </div>
+          </div> */}
         </FrameImage>
-        <FrameInput text="put some text here" />
+        <FrameInput text='put some text here' />
         <FrameButton onClick={dispatch}>
           {state?.active === "1" ? "Active" : "Inactive"}
         </FrameButton>
@@ -110,8 +116,7 @@ export default async function Home({
             address: "0x060f3edd18c47f59bd23d063bbeb9aa4a8fec6df",
             tokenId: "123",
             chainId: 7777777,
-          })}
-        >
+          })}>
           Mint
         </FrameButton>
         <FrameButton href={`https://www.google.com`}>External</FrameButton>
