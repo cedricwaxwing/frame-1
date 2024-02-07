@@ -4,12 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Box, OrbitControls } from '@react-three/drei';
 import './App.css';
-import ScreenshotTrigger from './ScreenshotTrigger';
 
 const App = () => {
-  const [triggerScreenshot, setTriggerScreenshot] = useState(false);
-  const [bgColor, setBgColor] = useState('ff0000');
-  const [fgColor, setFgColor] = useState('0000ff');
+  const [bgColor, setBgColor] = useState('#ff0000');
+  const [fgColor, setFgColor] = useState('#0000ff');
   const [imageDataURI, setImageDataURI] = useState('');
 
   const captureCanvasAsDataURI = () => {
@@ -44,7 +42,7 @@ const App = () => {
   return (
     <>
       <Canvas
-        style={{ width: '100vw', height: '75vh' }}
+        style={{ width: '40vw', height: '30vh' }}
         camera={{ position: [5, 5, 5] }}
         gl={{
           preserveDrawingBuffer: true,
@@ -59,7 +57,6 @@ const App = () => {
         </Box>
         <OrbitControls />
       </Canvas>
-      <button onClick={captureCanvas}>Download Image</button>
     </>
   );
 };
