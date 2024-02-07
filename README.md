@@ -1,191 +1,35 @@
-# A Frame in 100 lines (or less)
+# Frames.js Starter Kit
 
-Farcaster Frames in less than 100 lines, and ready to be deployed to Vercel.
+This is a boilerplate repo to get started quickly with `frames.js`
 
-To test a Frame, use: https://warpcast.com/~/developers/frames.
+## Quickstart
 
-And let us know what you build by either mentioning @zizzamia on [Warpcast](https://warpcast.com/zizzamia) or [X](https://twitter.com/Zizzamia).
+1. Install dependencies `yarn install`
 
-<br />
+2. Run the dev server `yarn dev`
 
-Have fun! ⛵️
+3. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-<br />
+4. Edit `app/page.tsx`
 
-## App Routing files
+5. Visit [http://localhost:3000/debug](http://localhost:3000/debug) to debug your frame.
 
-- app/
-  - [config.ts](https://github.com/Zizzamia/a-frame-in-100-lines?tab=readme-ov-file#appconfigts)
-  - [layout.tsx](https://github.com/Zizzamia/a-frame-in-100-lines?tab=readme-ov-file#applayouttsx)
-  - [page.tsx](https://github.com/Zizzamia/a-frame-in-100-lines?tab=readme-ov-file#apppagetsx)
-- api/
-  - frame/
-    - [route.ts](https://github.com/Zizzamia/a-frame-in-100-lines?tab=readme-ov-file#appapiframeroutets)
+6. (Optional) To use a real signer (costs warps), copy `.env.sample` to `.env` and fill in the env variables following the comments provided
 
-<br />
+## Docs, Questions and Help
 
-### `app/page.tsx`
+- [Frames.js Documentation](https://framesjs.org)
+- [Awesome frames](https://github.com/davidfurlong/awesome-frames?tab=readme-ov-file)
+- Join the [/frames-dev](https://warpcast.com/~/channel/frames-devs) channel on Farcaster to ask questions
 
-```tsx
-import { getFrameMetadata } from '@coinbase/onchainkit';
-import type { Metadata } from 'next';
-import { NEXT_PUBLIC_URL } from './config';
+## If you get stuck or have feedback, [Message @df please!](https://warpcast.com/df)
 
-const frameMetadata = getFrameMetadata({
-  buttons: [
-    {
-      label: 'Tell me the story',
-    },
-    {
-      label: 'Redirect to cute dog pictures',
-      action: 'post_redirect',
-    },
-  ],
-  image: `${NEXT_PUBLIC_URL}/park-1.png`,
-  input: {
-    text: 'Tell me a boat story',
-  },
-  post_url: `${NEXT_PUBLIC_URL}/api/frame`,
-});
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-export const metadata: Metadata = {
-  title: 'zizzamia.xyz',
-  description: 'LFG',
-  openGraph: {
-    title: 'zizzamia.xyz',
-    description: 'LFG',
-    images: [`${NEXT_PUBLIC_URL}/park-1.png`],
-  },
-  other: {
-    ...frameMetadata,
-  },
-};
+## Deploy
 
-export default function Page() {
-  return (
-    <>
-      <h1>zizzamia.xyz</h1>
-    </>
-  );
-}
+```bash
+vercel
 ```
 
-### `app/layout.tsx`
-
-```tsx
-export const viewport = {
-  width: 'device-width',
-  initialScale: 1.0,
-};
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  );
-}
-```
-
-### `app/config.ts`
-
-```ts
-export const NEXT_PUBLIC_URL = 'https://zizzamia.xyz';
-```
-
-### `app/api/frame/route.ts`
-
-```ts
-import { FrameRequest, getFrameMessage, getFrameHtmlResponse } from '@coinbase/onchainkit';
-import { NextRequest, NextResponse } from 'next/server';
-import { NEXT_PUBLIC_URL } from '../../config';
-
-async function getResponse(req: NextRequest): Promise<NextResponse> {
-  let accountAddress: string | undefined = '';
-  let text: string | undefined = '';
-
-  const body: FrameRequest = await req.json();
-  const { isValid, message } = await getFrameMessage(body, { neynarApiKey: 'NEYNAR_ONCHAIN_KIT' });
-
-  if (isValid) {
-    accountAddress = message.interactor.verified_accounts[0];
-  }
-
-  if (message?.input) {
-    text = message.input;
-  }
-
-  if (message?.button === 2) {
-    return NextResponse.redirect(
-      'https://www.google.com/search?q=cute+dog+pictures&tbm=isch&source=lnms',
-      { status: 302 },
-    );
-  }
-
-  return new NextResponse(
-    getFrameHtmlResponse({
-      buttons: [
-        {
-          label: `🌲 Text: ${text}`,
-        },
-      ],
-      image: `${NEXT_PUBLIC_URL}/park-2.png`,
-      post_url: `${NEXT_PUBLIC_URL}/api/frame`,
-    }),
-  );
-}
-
-export async function POST(req: NextRequest): Promise<Response> {
-  return getResponse(req);
-}
-
-export const dynamic = 'force-dynamic';
-```
-
-<br />
-
-## Resources
-
-- [Official Farcaster Frames documentation](https://docs.farcaster.xyz/learn/what-is-farcaster/frames)
-- [Official Farcaster Frame specification](https://docs.farcaster.xyz/reference/frames/spec)
-- [OnchainKit documentation](https://github.com/coinbase/onchainkit)
-
-<br />
-
-## The Team and Our Community ☁️ 🌁 ☁️
-
-A Farcaster Frame in 100 Lines is all about community. If you have any questions, feel free to reach out to the core maintainers on Twitter or through Farcaster.
-
-<table>
-  <tbody>
-    <tr>
-      <td align="center" valign="top">
-        <a href="https://twitter.com/Zizzamia">
-          <img width="80" height="80" src="https://github.com/zizzamia.png?s=100">
-        </a>
-        <br />
-        <a href="https://twitter.com/Zizzamia">Leonardo Zizzamia</a>
-      </td>
-      <td align="center" valign="top">
-        <a href="https://warpcast.com/cnasc">
-          <img width="80" height="80" src="https://github.com/cnasc.png?s=100">
-        </a>
-        <br />
-        <a href="https://warpcast.com/cnasc">Chris Nascone</a>
-      </td>
-      <td align="center" valign="top">
-        <a href="https://twitter.com/0xr0b_eth">
-          <img width="80" height="80" src="https://github.com/robpolak.png?s=100">
-        </a>
-        <br />
-        <a href="https://twitter.com/0xr0b_eth">Rob Polak</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<br />
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+more deployment links coming soon, PRs welcome!
