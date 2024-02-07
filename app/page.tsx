@@ -4,10 +4,17 @@ import { NEXT_PUBLIC_URL } from './config';
 import App from './App';
 
 const frameMetadata = getFrameMetadata({
-  image: `${NEXT_PUBLIC_URL}/park-1.png`,
   input: {
     text: 'Enter 2 hex values separated with a comma (ex: ff00ff,9900ff)',
   },
+  buttons: [
+    {
+      action: 'link',
+      label: 'Create Image',
+      target: `${NEXT_PUBLIC_URL}?bg=${'ffff00'}&fg=${'9900ff'}`,
+    },
+  ],
+  image: `${NEXT_PUBLIC_URL}/park-1.png`,
   post_url: `${NEXT_PUBLIC_URL}/api/frame`,
 });
 
