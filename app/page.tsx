@@ -82,30 +82,31 @@ export default async function Home({
 
   // then, when done, return next frame
   return (
-    <div className="p-4">
+    <div className='p-4'>
       frames.js starter kit.{" "}
-      <Link href={`/debug?url=${baseUrl}`} className="underline">
+      <Link href={`/debug?url=${baseUrl}`} className='underline'>
         Debug
       </Link>
       <FrameContainer
-        postUrl="/frames"
+        postUrl='/frames'
         state={state}
-        previousFrame={previousFrame}
-      >
-        {/* <FrameImage src="https://framesjs.org/og.png" /> */}
+        previousFrame={previousFrame}>
+        {/* <FrameImage src={canvasDataUri} /> */}
         <FrameImage>
-          <div tw="w-full h-full bg-slate-700 text-white justify-center items-center">
-            {frameMessage?.inputText ? frameMessage.inputText : "Hello world"}
+          <div tw='w-full h-full p-8 text-indigo-600 bg-indigo-100 font-bold text-center justify-center items-center'>
+            {frameMessage?.inputText
+              ? `Ok great, you want to fund ${frameMessage.inputText}. I'll find evaluate the best projects in the space. One moment, please.`
+              : "Fund public goods like magic ✨"}
           </div>
         </FrameImage>
-        <FrameInput text="put some text here" />
+        <FrameInput text='What would you like to fund?' />
         <FrameButton onClick={dispatch}>
-          {state?.active === "1" ? "Active" : "Inactive"}
+          {state?.active === "1" ? "Get Started ✨" : "Inactive"}
         </FrameButton>
         <FrameButton onClick={dispatch}>
-          {state?.active === "2" ? "Active" : "Inactive"}
+          {state?.active === "2" ? "Active" : "Ignore me"}
         </FrameButton>
-        <FrameButton
+        {/* <FrameButton
           mint={getTokenUrl({
             address: "0x060f3edd18c47f59bd23d063bbeb9aa4a8fec6df",
             tokenId: "123",
@@ -113,8 +114,9 @@ export default async function Home({
           })}
         >
           Mint
-        </FrameButton>
-        <FrameButton href={`https://www.google.com`}>External</FrameButton>
+        </FrameButton> */}
+        {/* <FrameButton href={`https://polywrap.io/`}>Learn More</FrameButton> */}
+        <FrameButton href={`https://blog.polywrap.io/`}>Subscribe</FrameButton>
       </FrameContainer>
     </div>
   );
