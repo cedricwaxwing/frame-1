@@ -106,16 +106,14 @@ export default async function Home({
         <FrameButton onClick={dispatch}>
           {state?.active === "2" ? "Active" : "Ignore me"}
         </FrameButton>
-        {/* <FrameButton
+        <FrameButton
           mint={getTokenUrl({
             address: "0x060f3edd18c47f59bd23d063bbeb9aa4a8fec6df",
             tokenId: "123",
             chainId: 7777777,
-          })}
-        >
-          Mint
-        </FrameButton> */}
-        {/* <FrameButton href={`https://polywrap.io/`}>Learn More</FrameButton> */}
+          })}>
+          Dont click
+        </FrameButton>
         <FrameButton href={`https://blog.polywrap.io/`}>Subscribe</FrameButton>
       </FrameContainer>
     </div>
